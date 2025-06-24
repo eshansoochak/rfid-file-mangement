@@ -109,7 +109,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
               </h1>
               <p className="text-gray-600 flex items-center">
                 <span className="font-medium text-blue-600 mr-2">Soochak Bharat</span>
-                • Advanced document management and tracking solution
+                • Advanced Document Management And Tracking Solution
               </p>
             </div>
           </div>
