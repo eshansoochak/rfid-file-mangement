@@ -93,13 +93,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             {/* Company Logo */}
             <div className="flex-shrink-0">
               <img 
-                src="/soochak-logo.png" 
+                src="/logo.png" 
                 alt="Soochak Bharat Logo" 
                 className="h-16 w-auto object-contain"
-                onError={(e) => {
-                  // Fallback if logo doesn't load
-                  e.currentTarget.style.display = 'none';
-                }}
               />
             </div>
             
