@@ -93,16 +93,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-6">
               <div className="flex items-center justify-center mb-4">
                 <img 
-                  src="/soochak-logo.png" 
+                  src="/logo.png" 
                   alt="Soochak Bharat Logo" 
                   className="h-12 w-auto object-contain"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const fallback = document.createElement('div');
-                    fallback.className = 'bg-white/20 p-3 rounded-full';
-                    fallback.innerHTML = '<svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
-                    e.currentTarget.parentNode?.appendChild(fallback);
-                  }}
                 />
               </div>
               <h2 className="text-2xl font-bold text-white text-center">Reset Password</h2>
@@ -163,16 +156,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-6">
             <div className="flex items-center justify-center mb-4">
               <img 
-                src="/soochak-logo.png" 
+                src="logo.png" 
                 alt="Soochak Bharat Logo" 
                 className="h-12 w-auto object-contain"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const fallback = document.createElement('div');
-                  fallback.className = 'bg-white/20 p-3 rounded-full';
-                  fallback.innerHTML = '<svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
-                  e.currentTarget.parentNode?.appendChild(fallback);
-                }}
               />
             </div>
             <h1 className="text-2xl font-bold text-white text-center">Admin Portal</h1>
