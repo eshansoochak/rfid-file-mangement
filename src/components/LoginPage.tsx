@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, Shield, RefreshCw, Lock, User, Mail } from 'lucide-react';
+import { Eye, EyeOff, Shield, RefreshCw, Lock, User, Mail, Users, UserCheck } from 'lucide-react';
+import { UserType } from '../types';
 
 interface LoginPageProps {
-  onLogin: (credentials: { username: string; password: string }) => void;
+  onLogin: (credentials: { username: string; password: string }, userType: UserType) => void;
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
+  const [userType, setUserType] = useState<UserType>('user');
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -65,13 +67,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      onLogin({ username: formData.username, password: formData.password });
+      onLogin({ username: formData.username, password: formData.password }, userType);
     }, 1500);
   };
 
   const handleForgotPassword = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle forgot password logic here
     alert('Password reset link has been sent to your registered email address.');
     setShowForgotPassword(false);
   };
@@ -93,13 +94,20 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-6">
               <div className="flex items-center justify-center mb-4">
                 <img 
-                  src="/logo.png" 
+                  src="/soochak-logo.png" 
                   alt="Soochak Bharat Logo" 
                   className="h-12 w-auto object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = 'bg-white/20 p-3 rounded-full';
+                    fallback.innerHTML = '<svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+                    e.currentTarget.parentNode?.appendChild(fallback);
+                  }}
                 />
               </div>
               <h2 className="text-2xl font-bold text-white text-center">Reset Password</h2>
-              <p className="text-blue-100 text-center mt-2"> File Management Software</p>
+              <p className="text-blue-100 text-center mt-2">File Management Software</p>
             </div>
             
             <form onSubmit={handleForgotPassword} className="p-8">
@@ -156,14 +164,53 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-6">
             <div className="flex items-center justify-center mb-4">
               <img 
-                src="logo.png" 
+                src="/soochak-logo.png" 
                 alt="Soochak Bharat Logo" 
                 className="h-12 w-auto object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fallback = document.createElement('div');
+                  fallback.className = 'bg-white/20 p-3 rounded-full';
+                  fallback.innerHTML = '<svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+                  e.currentTarget.parentNode?.appendChild(fallback);
+                }}
               />
             </div>
-            <h1 className="text-2xl font-bold text-white text-center">Admin Portal</h1>
-            <p className="text-blue-100 text-center mt-1"> File Management Software</p>
+            <h1 className="text-2xl font-bold text-white text-center">
+              {userType === 'admin' ? 'Admin Portal' : 'User Portal'}
+            </h1>
+            <p className="text-blue-100 text-center mt-1">File Management Software</p>
             <p className="text-blue-200 text-center text-sm mt-1">Soochak Bharat</p>
+          </div>
+
+          {/* User Type Selection */}
+          <div className="p-6 border-b border-gray-200">
+            <div className="flex space-x-2">
+              <button
+                type="button"
+                onClick={() => setUserType('user')}
+                className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
+                  userType === 'user'
+                    ? 'bg-blue-100 text-blue-700 border-2 border-blue-300'
+                    : 'bg-gray-50 text-gray-600 border-2 border-gray-200 hover:bg-gray-100'
+                }`}
+              >
+                <Users className="w-5 h-5" />
+                <span>User Login</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setUserType('admin')}
+                className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
+                  userType === 'admin'
+                    ? 'bg-blue-100 text-blue-700 border-2 border-blue-300'
+                    : 'bg-gray-50 text-gray-600 border-2 border-gray-200 hover:bg-gray-100'
+                }`}
+              >
+                <UserCheck className="w-5 h-5" />
+                <span>Admin Login</span>
+              </button>
+            </div>
           </div>
 
           {/* Login Form */}
@@ -281,7 +328,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                   Signing in...
                 </div>
               ) : (
-                'Sign In'
+                `Sign In as ${userType === 'admin' ? 'Admin' : 'User'}`
               )}
             </button>
           </form>
