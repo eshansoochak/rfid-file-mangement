@@ -111,7 +111,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             {/* Company Logo */}
             <div className="flex-shrink-0">
               <img 
-                src="/ogo.png" 
+                src="/logo.png" 
                 alt="Soochak Bharat Logo" 
                 className="h-16 w-auto object-contain"
               />
