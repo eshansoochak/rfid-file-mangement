@@ -26,3 +26,24 @@ export interface SearchFilters {
     end: Date;
   };
 }
+
+export type UserType = 'user' | 'admin';
+
+export type RequestType = 'issue' | 'upload';
+
+export interface FileRequest {
+  id: string;
+  type: RequestType;
+  rfidTag: string;
+  fileName: string;
+  requestedBy: string;
+  department: Department;
+  requestDate: Date;
+  duration?: string; // Only for issue requests
+  notes?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  // Upload specific fields
+  createdBy?: string; // For upload requests
+  tags?: string[]; // For upload requests
+  fileSize?: string; // For upload requests (when file is selected)
+}
