@@ -210,7 +210,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, c
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex items-center justify-between text-sm text-gray-500">
             <div className="flex items-center space-x-4">
-              <span>© 2024 Soochak Bharat</span>
+              <span>© 2025 Soochak Bharat</span>
               <span>•</span>
               <span>File Management Software</span>
               <span>•</span>
@@ -218,7 +218,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, c
             </div>
             <div className="flex items-center space-x-2">
               <span>Powered by</span>
-              <span className="font-semibold text-blue-600">Soochak Bharat Technology</span>
+              <span className="font-semibold text-blue-600">Soochak Bharat Technology Pvt Ltd</span>
             </div>
           </div>
         </div>
