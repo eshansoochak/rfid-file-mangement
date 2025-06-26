@@ -111,7 +111,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             {/* Company Logo */}
             <div className="flex-shrink-0">
               <img 
-                src="/soochak-logo.png" 
+                src="/ogo.png" 
                 alt="Soochak Bharat Logo" 
                 className="h-16 w-auto object-contain"
               />
@@ -123,7 +123,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </h1>
               <p className="text-gray-600 flex items-center">
                 <span className="font-medium text-blue-600 mr-2">Soochak Bharat</span>
-                • Advanced document management and tracking solution
+                • Advanced Document Management And Tracking Solution
               </p>
             </div>
           </div>
