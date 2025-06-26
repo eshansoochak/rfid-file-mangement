@@ -2,18 +2,20 @@ import React, { useState, useMemo } from 'react';
 import { SearchBar } from './SearchBar';
 import { FileTable } from './FileTable';
 import { StatsCards } from './StatsCards';
-import { IssueFileTab } from './IssueFileTab';
-import { UploadFileTab } from './UploadFileTab';
+import { UserIssueFileTab } from './UserIssueFileTab';
+import { UserUploadFileTab } from './UserUploadFileTab';
 import { mockFiles, departments } from '../data/mockData';
-import { SearchFilters, FileRecord } from '../types';
+import { SearchFilters, FileRecord, FileRequest } from '../types';
 import { LogOut, User, FileText, Plus, Upload } from 'lucide-react';
 
 interface DashboardProps {
   onLogout?: () => void;
+  onFileRequest: (request: Omit<FileRequest, 'id' | 'requestDate' | 'status'>) => void;
+  currentUser: string;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'issue-file' | 'upload-file'>('dashboard');
+export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, currentUser }) => {
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'request-issue' | 'request-upload'>('dashboard');
   const [searchFilters, setSearchFilters] = useState<SearchFilters>({
     query: '',
     tags: []
@@ -59,19 +61,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
       id: 'dashboard' as const,
       name: 'Dashboard',
       icon: FileText,
-      description: 'View and manage files'
+      description: 'View and search files'
     },
     {
-      id: 'issue-file' as const,
-      name: 'Issue File',
+      id: 'request-issue' as const,
+      name: 'Request Issue',
       icon: Plus,
-      description: 'Issue files to users'
+      description: 'Request to issue files'
     },
     {
-      id: 'upload-file' as const,
-      name: 'Upload File',
+      id: 'request-upload' as const,
+      name: 'Request Upload',
       icon: Upload,
-      description: 'Upload new files to cloud'
+      description: 'Request to upload files'
     }
   ];
 
@@ -93,7 +95,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             {/* Company Logo */}
             <div className="flex-shrink-0">
               <img 
-                src="/logo.png" 
+                src="/soochak-logo.png" 
                 alt="Soochak Bharat Logo" 
                 className="h-16 w-auto object-contain"
               />
@@ -101,11 +103,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                 File Management Software
+                File Management Software
               </h1>
               <p className="text-gray-600 flex items-center">
                 <span className="font-medium text-blue-600 mr-2">Soochak Bharat</span>
-                • Advanced Document Management And Tracking Solution
+                • Advanced document management and tracking solution
               </p>
             </div>
           </div>
@@ -114,7 +116,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 text-gray-600">
                 <User className="w-5 h-5" />
-                <span className="text-sm font-medium">Admin User</span>
+                <span className="text-sm font-medium">{currentUser} (User)</span>
               </div>
               <button
                 onClick={onLogout}
@@ -135,13 +137,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
                 <FileText className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-lg font-semibold">Professional File Management</h2>
+                <h2 className="text-lg font-semibold">User File Management Portal</h2>
                 <p className="text-blue-100 text-sm">Powered by Soochak Bharat Technology</p>
               </div>
             </div>
             <div className="text-right">
               <div className="text-sm font-medium">Secure • Efficient • Reliable</div>
-              <div className="text-xs text-blue-200">Enterprise Grade Solution</div>
+              <div className="text-xs text-blue-200">User Access Level</div>
             </div>
           </div>
         </div>
@@ -188,12 +190,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
           </>
         )}
 
-        {activeTab === 'issue-file' && (
-          <IssueFileTab departments={departments} />
+        {activeTab === 'request-issue' && (
+          <UserIssueFileTab 
+            departments={departments} 
+            onFileRequest={onFileRequest}
+            currentUser={currentUser}
+          />
         )}
 
-        {activeTab === 'upload-file' && (
-          <UploadFileTab departments={departments} />
+        {activeTab === 'request-upload' && (
+          <UserUploadFileTab 
+            departments={departments} 
+            onFileRequest={onFileRequest}
+            currentUser={currentUser}
+          />
         )}
 
         {/* Footer with Company Info */}
@@ -202,7 +212,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             <div className="flex items-center space-x-4">
               <span>© 2024 Soochak Bharat</span>
               <span>•</span>
-              <span> File Management Software</span>
+              <span>File Management Software</span>
               <span>•</span>
               <span>Version 1.0</span>
             </div>
