@@ -132,7 +132,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             {/* Company Logo */}
             <div className="flex-shrink-0">
               <img 
-                src="/soochak-logo.png" 
+                src="/logo.png" 
                 alt="Soochak Bharat Logo" 
                 className="h-16 w-auto object-contain"
               />
@@ -144,7 +144,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </h1>
               <p className="text-gray-600 flex items-center">
                 <span className="font-medium text-blue-600 mr-2">Soochak Bharat</span>
-                • Advanced document management and tracking solution
+                • Advanced Document Management And Tracking Solution
               </p>
             </div>
           </div>
@@ -263,7 +263,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex items-center justify-between text-sm text-gray-500">
             <div className="flex items-center space-x-4">
-              <span>© 2024 Soochak Bharat</span>
+              <span>© 2025 Soochak Bharat</span>
               <span>•</span>
               <span>File Management Software</span>
               <span>•</span>
@@ -271,7 +271,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </div>
             <div className="flex items-center space-x-2">
               <span>Powered by</span>
-              <span className="font-semibold text-blue-600">Soochak Bharat Technology</span>
+              <span className="font-semibold text-blue-600">Soochak Bharat Technology Pvt Ltd</span>
             </div>
           </div>
         </div>
