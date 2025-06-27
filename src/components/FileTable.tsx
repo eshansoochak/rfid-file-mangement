@@ -25,6 +25,7 @@ type SortDirection = 'asc' | 'desc';
 export const FileTable: React.FC<FileTableProps> = ({ files }) => {
   const [sortField, setSortField] = useState<SortField>('lastAccessed');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+  
 
   const getFileIcon = (fileType: string) => {
     switch (fileType.toLowerCase()) {
