@@ -4,9 +4,12 @@ import { FileTable } from './FileTable';
 import { StatsCards } from './StatsCards';
 import { UserIssueFileTab } from './UserIssueFileTab';
 import { UserUploadFileTab } from './UserUploadFileTab';
+import { FileIssuedCloserTab } from './FileIssuedCloserTab';
+import { FileLocationUpdateTab } from './FileLocationUpdateTab';
+import { InventoryTrackerTab } from './InventoryTrackerTab';
 import { mockFiles, departments } from '../data/mockData';
 import { SearchFilters, FileRecord, FileRequest } from '../types';
-import { LogOut, User, FileText, Plus, Upload } from 'lucide-react';
+import { LogOut, User, FileText, Plus, Upload, Archive, Navigation, Search } from 'lucide-react';
 
 interface DashboardProps {
   onLogout?: () => void;
@@ -15,7 +18,7 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, currentUser }) => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'request-issue' | 'request-upload'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'request-issue' | 'request-upload' | 'file-closer' | 'location-update' | 'inventory-tracker'>('dashboard');
   const [searchFilters, setSearchFilters] = useState<SearchFilters>({
     query: '',
     tags: []
@@ -74,6 +77,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, c
       name: 'Request Upload',
       icon: Upload,
       description: 'Request to upload files'
+    },
+    {
+      id: 'file-closer' as const,
+      name: 'File Issue Closer',
+      icon: Archive,
+      description: 'Close issued file records'
+    },
+    {
+      id: 'location-update' as const,
+      name: 'Location Update',
+      icon: Navigation,
+      description: 'Update file locations'
+    },
+    {
+      id: 'inventory-tracker' as const,
+      name: 'Inventory Tracker',
+      icon: Search,
+      description: 'Track file inventory'
     }
   ];
 
@@ -95,7 +116,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, c
             {/* Company Logo */}
             <div className="flex-shrink-0">
               <img 
-                src="/logo.png" 
+                src="/soochak-logo.png" 
                 alt="Soochak Bharat Logo" 
                 className="h-16 w-auto object-contain"
               />
@@ -107,7 +128,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, c
               </h1>
               <p className="text-gray-600 flex items-center">
                 <span className="font-medium text-blue-600 mr-2">Soochak Bharat</span>
-                • Advanced Document Management And Tracking Solution
+                • Advanced document management and tracking solution
               </p>
             </div>
           </div>
@@ -151,14 +172,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, c
         {/* Tab Navigation */}
         <div className="mb-8">
           <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
+            <nav className="-mb-px flex space-x-8 overflow-x-auto">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 ${
+                    className={`group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 whitespace-nowrap ${
                       activeTab === tab.id
                         ? 'border-blue-500 text-blue-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -206,11 +227,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, c
           />
         )}
 
+        {activeTab === 'file-closer' && (
+          <FileIssuedCloserTab currentUser={currentUser} />
+        )}
+
+        {activeTab === 'location-update' && (
+          <FileLocationUpdateTab currentUser={currentUser} />
+        )}
+
+        {activeTab === 'inventory-tracker' && (
+          <InventoryTrackerTab />
+        )}
+
         {/* Footer with Company Info */}
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex items-center justify-between text-sm text-gray-500">
             <div className="flex items-center space-x-4">
-              <span>© 2025 Soochak Bharat</span>
+              <span>© 2024 Soochak Bharat</span>
               <span>•</span>
               <span>File Management Software</span>
               <span>•</span>
@@ -218,7 +251,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onFileRequest, c
             </div>
             <div className="flex items-center space-x-2">
               <span>Powered by</span>
-              <span className="font-semibold text-blue-600">Soochak Bharat Technology Pvt Ltd</span>
+              <span className="font-semibold text-blue-600">Soochak Bharat Technology</span>
             </div>
           </div>
         </div>
