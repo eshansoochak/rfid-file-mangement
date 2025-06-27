@@ -9,12 +9,49 @@ export interface FileRecord {
   size: string;
   rfidTag: string;
   status: 'available' | 'checked-out' | 'archived';
+  currentLocation?: Location;
+  locationHistory?: LocationHistory[];
 }
 
 export interface Department {
   id: string;
   name: string;
   color: string;
+}
+
+export interface Location {
+  id: string;
+  name: string;
+  description: string;
+  building?: string;
+  floor?: string;
+  room?: string;
+}
+
+export interface LocationHistory {
+  id: string;
+  fileId: string;
+  location: Location;
+  movedBy: string;
+  movedDate: Date;
+  previousLocation?: Location;
+  notes?: string;
+}
+
+export interface FileIssue {
+  id: string;
+  fileId: string;
+  fileName: string;
+  rfidTag: string;
+  issuedTo: string;
+  issuedBy: string;
+  issueDate: Date;
+  expectedReturnDate: Date;
+  actualReturnDate?: Date;
+  issueLocation: Location;
+  returnLocation?: Location;
+  status: 'issued' | 'returned' | 'overdue';
+  notes?: string;
 }
 
 export interface SearchFilters {
